@@ -19,13 +19,16 @@ class ArticleController extends Controller
             return Article::query()->paginate(10, pageName: 'page');
         });
 
+        $lastPage = $articles->lastPage();
+
         $stats = $this->cartService->getStats();
 
         return view('articles.index', [
             'articles' => $articles,
             'totalPrice' => $stats->total_price,
             'count' => $stats->count,
-            'currentPage' => $request->input('page') ?? 1
+            'currentPage' => $request->input('page') ?? 1,
+            'lastPage' => $lastPage
         ]);
     }
 }

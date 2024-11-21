@@ -60,7 +60,7 @@ class CartController
     {
         $result = DB::select('SELECT articles.id, articles.title, articles.price, COUNT(*) as count FROM articles
                               INNER JOIN article_user_carts on articles.id = article_user_carts.article_id
-                              GROUP BY article_user_carts.article_id');
+                              GROUP BY articles.id, articles.title, articles.price, article_user_carts.article_id');
 
         $sum = Cart::query()->with('article')->get()->pluck('article')->pluck('price')->sum();
 

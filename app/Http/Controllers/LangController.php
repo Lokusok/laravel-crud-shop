@@ -8,7 +8,8 @@ class LangController extends Controller
 {
     public function switch(Request $request)
     {
-        $prevRequest =  Request::create($request->session()->previousUrl());
+        // @TODO добавлять QueryString
+        $prevRequest =  Request::create(url()->previous());
 
         $segments = $prevRequest->segments();
         $segments[0] = $request->input('lang');

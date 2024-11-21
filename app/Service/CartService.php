@@ -50,7 +50,7 @@ class CartService
                 WHERE session_id = :session_id
         ');
 
-        $sql .= ' GROUP BY article_user_carts.article_id';
+        $sql .= ' GROUP BY articles.id, articles.title, articles.price, article_user_carts.article_id';
 
         if (Auth::check()) {
             $res = DB::select($sql, [

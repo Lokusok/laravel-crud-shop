@@ -10,7 +10,7 @@
     @endforeach
 
     <div class="pagination">
-        @for ($i = 1; $i <= 3; $i++)
+        @for ($i = 1; $i <= $lastPage; $i++)
             <a href="?page={{ $i }}" class="pagination__item {{ $i == $currentPage ? 'current' : '' }}">
                 {{ $i }}
             </a>

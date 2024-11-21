@@ -10,7 +10,7 @@
             /
             <span class="basket__current-price">{{ $totalPrice }} ₽</span>
         @else
-            <span>Пусто</span>
+            <span>{{ __('Пусто') }}</span>
         @endif
     </div>
 
