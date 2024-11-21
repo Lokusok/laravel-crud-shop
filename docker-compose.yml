@@ -1,0 +1,48 @@
+services:
+    php:
+        container_name: php_fpm
+        build:
+            context: "./docker/php"
+        volumes:
+            - "./:/usr/share/nginx/html"
+        networks:
+            - lemp
+        depends_on:
+            - "db"
+
+    web:
+        container_name: nginx_server
+        build:
+            context: "./docker/nginx"
+        ports:
+            - "8080:80"
+            - "5173:5173"
+        volumes:
+            - "./:/usr/share/nginx/html"
+            - "./conf:/etc/nginx/conf.d"
+        links:
+            - php
+        networks:
+            - lemp
+
+    db:
+        container_name: mariadb_server
+        image: mariadb
+        restart: always
+        environment:
+            MARIADB_ROOT_PASSWORD: root
+        networks:
+            - lemp
+
+    adminer:
+        container_name: adminer_server
+        image: adminer
+        restart: always
+        ports:
+            - 5555:8080
+        networks:
+            - lemp
+
+networks:
+    lemp:
+        driver: bridge
