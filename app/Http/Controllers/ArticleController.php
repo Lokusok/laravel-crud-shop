@@ -4,24 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Cart;
+use App\Service\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
+    public function __construct(private CartService $cartService) {}
+
     public function index(Request $request)
     {
         $articles = Article::query()->paginate(10, pageName: 'page');
 
-        $res = DB::select('
-            SELECT SUM(articles.price) as total_price, COUNT(*) as count FROM article_user_carts
-            INNER JOIN articles ON article_user_carts.article_id = articles.id
-        ')[0];
+        $stats = $this->cartService->getStats();
 
         return view('articles.index', [
             'articles' => $articles,
-            'totalPrice' => $res->total_price,
-            'count' => $res->count,
+            'totalPrice' => $stats->total_price,
+            'count' => $stats->count,
             'currentPage' => $request->input('page') ?? 1
         ]);
     }

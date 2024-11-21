@@ -59,11 +59,17 @@ body {
 
 .sub-header {
     display: flex;
-    justify-content: flex-end;
     padding: 20px;
 }
 
 .sub-header__info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.basket {
+    margin-left: auto;
     display: flex;
     align-items: center;
 }
@@ -118,4 +124,56 @@ body {
 .pagination__item.current {
     background: #0087e9;
     color: #fff;
+}
+
+.nav__list {
+    list-style: none;
+}
+
+.nav__link {
+    color: #0087e9;
+}
+
+.nav__link:hover {
+    opacity: 0.8;
+}
+
+.nav__link:active {
+    opacity: 0.4;
+}
+
+.auth {
+    margin-top: 40px;
+    padding-left: 20px;
+}
+
+.auth__title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.auth__form {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.auth__label {
+    display: block;
+}
+
+.auth__input {
+    padding: 3px 5px;
+}
+
+.auth__errors {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.auth__error {
+    color: red;
+    display: block;
 }

@@ -4,39 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Cart;
+use App\Service\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
+    public function __construct(private CartService $cartService) {}
+
     public function store(Request $request)
     {
         $data = $request->validate([
             'id' => ['required', 'integer', 'exists:articles,id']
         ]);
 
-        $sessionId = Session::getId();
-
-        Cart::query()->create([
-            'article_id' => $data['id'],
-            'session_id' => $sessionId
-        ]);
+        $this->cartService->put($data['id']);
 
         return redirect()->back();
     }
 
     public function index()
     {
-        $result = DB::select('SELECT articles.id, articles.title, articles.price, COUNT(*) as count FROM articles
-                              INNER JOIN article_user_carts on articles.id = article_user_carts.article_id
-                              GROUP BY article_user_carts.article_id');
-
-        $sum = Cart::query()->with('article')->get()->pluck('article')->pluck('price')->sum();
+        $info = $this->cartService->getInfo();
 
         return view('articles.cart', [
-            'articles' => $result,
-            'totalSum' => $sum
+            'articles' => $info['articles'],
+            'totalSum' => $info['sum']
         ]);
     }
 
