@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Cart;
 use App\Service\CartService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
@@ -14,7 +13,11 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $articles = Article::query()->paginate(10, pageName: 'page');
+        $page = $request->input('page') ?? 1;
+
+        $articles = Cache::remember("articles.{$page}", 60, function () {
+            return Article::query()->paginate(10, pageName: 'page');
+        });
 
         $stats = $this->cartService->getStats();
 
