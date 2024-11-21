@@ -23,6 +23,20 @@
     <div class="content">
         {{ $slot }}
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const forms = document.forms;
+
+            for (const form of forms) {
+                const submitBtn = form.querySelector('button[type="submit"]');
+
+                form.addEventListener('submit', () => {
+                    submitBtn.disabled = true;
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

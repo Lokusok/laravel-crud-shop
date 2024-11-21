@@ -3,35 +3,75 @@
 namespace App\Service;
 
 use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CartService
 {
+    private static function prepareForAuth(string $sql): string
+    {
+        if (Auth::check()) {
+            $sql .= ' OR user_id = :user_id';
+        }
+
+        return $sql;
+    }
+
     public function getStats()
     {
-        $res = DB::select('
+        $sql = self::prepareForAuth('
             SELECT SUM(articles.price) as total_price, COUNT(*) as count FROM article_user_carts
             INNER JOIN articles ON article_user_carts.article_id = articles.id
             WHERE session_id = :session_id
-        ', [
-            ':session_id' => Session::getId()
-        ])[0];
+        ');
+
+        $sessionId = Session::getId();
+
+        if (Auth::check()) {
+            $res = DB::select($sql, [
+                ':session_id' => $sessionId,
+                ':user_id' => Auth::user()->id
+            ])[0];
+        } else {
+            $res = DB::select($sql, [
+                ':session_id' => $sessionId,
+            ])[0];
+        }
 
         return $res;
     }
 
     public function getInfo()
     {
-        $res = DB::select('SELECT articles.id, articles.title, articles.price, COUNT(*) as count FROM articles
-                              INNER JOIN article_user_carts on articles.id = article_user_carts.article_id
-                              WHERE session_id = :session_id
-                              GROUP BY article_user_carts.article_id
-                              ', [
-            ':session_id' => Session::getId()
-        ]);
+        $sql = self::prepareForAuth('
+                SELECT articles.id, articles.title, articles.price, COUNT(*) as count FROM articles
+                INNER JOIN article_user_carts on articles.id = article_user_carts.article_id
+                WHERE session_id = :session_id
+        ');
 
-        $sum = Cart::query()->with('article')->get()->pluck('article')->pluck('price')->sum();
+        $sql .= ' GROUP BY article_user_carts.article_id';
+
+        if (Auth::check()) {
+            $res = DB::select($sql, [
+                ':session_id' => Session::getId(),
+                ':user_id' => Auth::user()->id
+            ]);
+        } else {
+            $res = DB::select($sql, [
+                ':session_id' => Session::getId(),
+            ]);
+        }
+
+        $sum = Cart::query();
+
+        if (Auth::check()) {
+            $sum = $sum->where('user_id', Auth::user()->id);
+        } else {
+            $sum = $sum->where('session_id', Session::getId());
+        }
+
+        $sum = $sum->with('article')->get()->pluck('article')->pluck('price')->sum();
 
         return [
             'articles' => $res,
@@ -41,11 +81,18 @@ class CartService
 
     public function put(string $id)
     {
-        $sessionId = Session::getId();
+        if (Auth::check()) {
+            Cart::query()->create([
+                'article_id' => $id,
+                'user_id' => Auth::user()->id
+            ]);
+        } else {
+            $sessionId = Session::getId();
 
-        Cart::query()->create([
-            'article_id' => $id,
-            'session_id' => $sessionId
-        ]);
+            Cart::query()->create([
+                'article_id' => $id,
+                'session_id' => $sessionId
+            ]);
+        }
     }
 }

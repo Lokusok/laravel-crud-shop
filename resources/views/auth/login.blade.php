@@ -13,7 +13,7 @@
         <x-basket :count="$count" :total-price="$totalPrice" />
     </x-sub-header>
 
-    <div class="auth">
+    <x-content>
         <h3 class="auth__title">
             Вход
         </h3>
@@ -50,7 +50,5 @@
                 <button type="submit">Войти</button>
             </div>
         </form>
-
-        {{-- @dd($errors) --}}
-    </div>
+    </x-content>
 </x-layouts.main>

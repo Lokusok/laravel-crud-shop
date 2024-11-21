@@ -33,15 +33,21 @@ class AuthController extends Controller
             'password' => ['required', 'string']
         ]);
 
-        $isAuthenticate = Auth::attempt([
-            'email' => $data['email'],
-            'password' => $data['password']
-        ]);
+        $isAuthenticate = false;
 
-        // @TODO сделать корректное изменение
-        Cart::query()->where('session_id', Session::getId())->update([
-            'user_id' => Auth::user()->id
-        ]);
+        $user = User::query()->where([
+            'email' => $data['email']
+        ])->first();
+
+        if (Hash::check($data['password'], $user->password)) {
+            Cart::query()->where('session_id', Session::getId())->update([
+                'user_id' => $user->id
+            ]);
+
+            Auth::login($user);
+
+            $isAuthenticate = true;
+        }
 
         if ($isAuthenticate) {
             return redirect()->route('profile.index');
@@ -51,5 +57,16 @@ class AuthController extends Controller
     public function register()
     {
         return view('auth.register');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('articles.index');
     }
 }
