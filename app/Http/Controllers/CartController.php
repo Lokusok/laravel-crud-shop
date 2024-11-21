@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Cart;
 use App\Service\CartService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class CartController extends Controller
 {
@@ -26,19 +27,19 @@ class CartController extends Controller
     {
         $info = $this->cartService->getInfo();
 
-        return view('articles.cart', [
+        return view('cart.index', [
             'articles' => $info['articles'],
             'totalSum' => $info['sum']
         ]);
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        $article = Article::findOrFail($id);
+        $article = Article::findOrFail($request->route('id'));
 
         $cartItem = Cart::query()->where('article_id', $article->id)->orderBy('created_at', 'DESC')->first();
         $cartItem->delete();
 
-        return redirect()->route('articles.cart');
+        return redirect()->route('cart.index');
     }
 }

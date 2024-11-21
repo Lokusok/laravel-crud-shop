@@ -1,12 +1,12 @@
 @props(['count', 'totalPrice'])
 
 <div class="basket">
-    <span class="basket__descr">В корзине:</span>
+    <span class="basket__descr">{{ __('В корзине') }}:</span>
 
     <div class="basket_concrete">
         @if ($count > 0)
             <span class="basket__current-count">{{ $count }}
-                {{ Str::number($count, ['товар', 'товара', 'товаров']) }}</span>
+                {{ Str::number($count, [__('товар'), __('товара'), __('товаров')]) }}</span>
             /
             <span class="basket__current-price">{{ $totalPrice }} ₽</span>
         @else
@@ -15,9 +15,9 @@
     </div>
 
     <div class="basket__actions">
-        <a href="{{ route('articles.cart') }}">
+        <a href="{{ route('cart.index') }}">
             <button class="basket__action">
-                Корзина
+                {{ __('Корзина') }}
             </button>
         </a>
     </div>

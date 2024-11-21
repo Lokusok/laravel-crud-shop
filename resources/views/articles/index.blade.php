@@ -1,5 +1,5 @@
-<x-layouts.main title="Каталог">
-    <x-header title="Магазин" />
+<x-layouts.main :title="__('Магазин')">
+    <x-header :title="__('Магазин')" />
 
     <x-sub-header>
         <x-basket :count="$count" :total-price="$totalPrice" />

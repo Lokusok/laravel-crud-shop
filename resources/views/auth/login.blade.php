@@ -2,13 +2,7 @@
     <x-header title="Вход" />
 
     <x-sub-header>
-        <nav class="nav">
-            <ul class="nav__list">
-                <li class="nav__item">
-                    <a href="{{ route('articles.index') }}" class="nav__link">Главная</a>
-                </li>
-            </ul>
-        </nav>
+        <x-nav />
 
         <x-basket :count="$count" :total-price="$totalPrice" />
     </x-sub-header>

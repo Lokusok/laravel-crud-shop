@@ -1,9 +1,9 @@
-<x-layouts.main title="Корзина">
-    <x-header title="Корзина" />
+<x-layouts.main :title="__('Корзина')">
+    <x-header :title="__('Корзина')" />
 
     <x-sub-header>
         <a href="{{ route('articles.index') }}">
-            <button>Назад</button>
+            <button>{{ __('Назад') }}</button>
         </a>
     </x-sub-header>
 

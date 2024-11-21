@@ -11,7 +11,7 @@
             <span class="article__price">{{ $price }} ₽</span>
 
             @isset($count)
-                <span class="article__count">{{ $count }} шт</span>
+                <span class="article__count">{{ $count }} {{ __('шт') }}</span>
             @endisset
         </div>
 
@@ -23,7 +23,7 @@
                 <input type="hidden" value="{{ $id }}" name="id">
 
                 <button type="submit" class="article__buy">
-                    Удалить
+                    {{ __('Удалить') }}
                 </button>
             </form>
         @else
@@ -33,7 +33,7 @@
                 <input type="hidden" value="{{ $id }}" name="id">
 
                 <button type="submit" class="article__buy">
-                    Добавить
+                    {{ __('Добавить') }}
                 </button>
             </form>
         @endif
