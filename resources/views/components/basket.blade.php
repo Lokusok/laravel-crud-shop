@@ -16,9 +16,11 @@
         </div>
 
         <div class="basket__actions">
-            <button x-data @click="$store.cart.modal.open()" class="basket__action">
-                Корзина
-            </button>
+            <a href="{{ route('articles.cart') }}">
+                <button class="basket__action">
+                    Корзина
+                </button>
+            </a>
         </div>
     </div>
 </div>

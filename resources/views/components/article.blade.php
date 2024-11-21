@@ -1,4 +1,4 @@
-@props(['id', 'title', 'price', 'count' => null])
+@props(['id', 'title', 'price', 'count' => null, 'deletable' => false])
 
 <article class="article">
     <div class="article__info">
@@ -15,14 +15,27 @@
             @endisset
         </div>
 
-        <form action="{{ route('cart.store') }}" method="POST">
-            @csrf
+        @if ($deletable)
+            <form action="{{ route('cart.destroy', [$id]) }}" method="POST">
+                @csrf
+                @method('DELETE')
 
-            <input type="hidden" value="{{ $id }}" name="id">
+                <input type="hidden" value="{{ $id }}" name="id">
 
-            <button type="submit" class="article__buy">
-                Добавить
-            </button>
-        </form>
+                <button type="submit" class="article__buy">
+                    Удалить
+                </button>
+            </form>
+        @else
+            <form action="{{ route('cart.store') }}" method="POST">
+                @csrf
+
+                <input type="hidden" value="{{ $id }}" name="id">
+
+                <button type="submit" class="article__buy">
+                    Добавить
+                </button>
+            </form>
+        @endif
     </div>
 </article>

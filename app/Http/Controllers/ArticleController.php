@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Cart;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class ArticleController extends Controller
 {
