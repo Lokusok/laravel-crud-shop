@@ -8,13 +8,16 @@ class LangController extends Controller
 {
     public function switch(Request $request)
     {
-        // @TODO добавлять QueryString
+        $prevUrl = url()->previous();
+
+        $queryString = parse_url($prevUrl, PHP_URL_QUERY);
+
         $prevRequest =  Request::create(url()->previous());
 
         $segments = $prevRequest->segments();
         $segments[0] = $request->input('lang');
 
-        $url = implode('/', $segments);
+        $url = implode('/', $segments) . '?' . $queryString;
 
         return redirect($url);
     }
