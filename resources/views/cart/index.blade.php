@@ -13,7 +13,7 @@
 
     <div class="cart-result">
         <div class="cart-result__text">
-            Итого: {{ $totalSum }} ₽
+            {{ __('Итого') }}: {{ $totalSum }} ₽
         </div>
     </div>
 </x-layouts.main>

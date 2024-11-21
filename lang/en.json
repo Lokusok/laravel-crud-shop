@@ -16,5 +16,11 @@
     "Назад": "Back",
     "Добавить": "Add to cart",
     "Удалить": "Remove",
-    "шт": "pcs"
+    "шт": "pcs",
+    "Вход": "Login",
+    "Логин": "Login",
+    "Ваш логин": "Your login",
+    "Ваш пароль": "Your password",
+    "Войти": "Login",
+    "Итого": "Total"
 }

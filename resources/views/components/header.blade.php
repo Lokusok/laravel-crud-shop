@@ -7,7 +7,7 @@
         @guest
             <div class="header__nav">
                 <a href="{{ route('auth.login') }}" class="header__link">
-                    <button>Войти</button>
+                    <button>{{ __('Войти') }}</button>
                 </a>
             </div>
         @endguest

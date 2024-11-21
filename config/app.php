@@ -125,6 +125,8 @@ return [
 
     'available_locales' => [
         'English' => 'en',
-        'Русский' => 'ru'
+        'Русский' => 'ru',
+        'Español' => 'es',
+        'Deutsch' => 'de'
     ]
 ];
