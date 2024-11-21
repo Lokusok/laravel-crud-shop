@@ -57,19 +57,19 @@ body {
     gap: 20px;
 }
 
-.basket {
+.sub-header {
     display: flex;
     justify-content: flex-end;
     padding: 20px;
 }
 
-.basket__descr {
-    margin-right: 20px;
-}
-
-.basket__info {
+.sub-header__info {
     display: flex;
     align-items: center;
+}
+
+.basket__descr {
+    margin-right: 20px;
 }
 
 .basket_concrete {
@@ -85,36 +85,37 @@ body {
     margin-left: 5px;
 }
 
-.cart-modal {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.cart-modal__content {
-    background: #fff;
-    width: 100%;
-    max-width: 960px;
-    margin: auto;
-    border-radius: 6px;
-    overflow: hidden;
-    padding-bottom: 90px;
-}
-
-.cart-modal__info {
-    padding-top: 70px;
-}
-
 .cart-result {
     padding-top: 20px;
     padding-left: 120px;
     padding-right: 120px;
     text-align: right;
     font-weight: bold;
+}
+
+.pagination {
+    display: flex;
+    padding: 0 20px;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.pagination__item {
+    color: #000;
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination__item:hover {
+    background: #e1e1e1;
+}
+
+.pagination__item.current {
+    background: #0087e9;
+    color: #fff;
 }

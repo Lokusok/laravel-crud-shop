@@ -23,7 +23,7 @@ class CartController extends Controller
             'session_id' => $sessionId
         ]);
 
-        return redirect()->route('articles.index');
+        return redirect()->back();
     }
 
     public function index()
