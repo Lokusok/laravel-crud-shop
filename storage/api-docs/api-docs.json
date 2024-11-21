@@ -1,0 +1,137 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Cart",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/cart": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "operationId": "7fdb9b40bd4ad2baf12aa15164eab788",
+                "responses": {
+                    "200": {
+                        "description": "Получить содержимое корзины",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number",
+                                                    "example": 4242
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Swagger Book"
+                                                },
+                                                "price": {
+                                                    "type": "number",
+                                                    "example": 1800
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cart/current": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "operationId": "681d5171020de9916346545a719c2325",
+                "responses": {
+                    "200": {
+                        "description": "Получить статистику лежащего в корзине",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "articles": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": 4242
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Swagger Book"
+                                                    },
+                                                    "price": {
+                                                        "type": "number",
+                                                        "example": 1800
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "total_sum": {
+                                            "type": "number",
+                                            "example": "500"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cart/{itemId}": {
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "operationId": "61467a79ad43faca035fc4491264d48a",
+                "parameters": [
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "description": "ID товара",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Получить статистику лежащего в корзине",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Cart",
+            "description": "Cart"
+        }
+    ]
+}
