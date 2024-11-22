@@ -38,7 +38,7 @@
 
 ## Вход в аккаунт
 
-id - от 0 до 10 (подробнее в `database/seeders/UserSeeder`)
+id - от 1 до 10 (подробнее в `database/seeders/UserSeeder`)
 
 Почта: `user{id}@user{id}.com`
 Пароль: `qwerty`
