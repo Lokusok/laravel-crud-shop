@@ -109,9 +109,12 @@ body {
 .cart-result {
     padding-top: 20px;
     padding-left: 120px;
-    padding-right: 120px;
-    text-align: right;
+    padding-right: 40px;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
 }
 
 .pagination {

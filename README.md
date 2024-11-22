@@ -1,9 +1,10 @@
-## Каталог товаров с корзиной (Read, Delete)
+## Каталог товаров с корзиной (Read, Delete, Export)
 
 -   I18n
 -   Redis (Cache)
 -   Docker
 -   Корзина по сессиям, при логине переходит к пользователю
+-   Экспорт корзины в Excel
 -   Custom pagination
 
 ## Технологии, использованные при разработке
@@ -12,11 +13,32 @@
 
 ## Запуск
 
-1.  `npm run dev`
-2.  `docker compose up`
+### Через Docker:
+
+1.  `mv .env.docker .env`
+2.  `npm run dev`
+3.  `docker compose up`
 
 Для заполнения товарами:
 `docker exec <container_id> php artisan db:seed`
 
 Для заполнения пользователями:
 `docker exec <container_id> php artisan db:seed UserSeeder`
+
+### Локально:
+
+1.  `mv .env.local .env`
+2.  `composer run dev`
+
+Для заполнения товарами:
+`php artisan db:seed`
+
+Для заполнения пользователями:
+`php artisan db:seed UserSeeder`
+
+## Вход в аккаунт
+
+id - от 0 до 10 (подробнее в `database/seeders/UserSeeder`)
+
+Почта: `user{id}@user{id}.com`
+Пароль: `qwerty`

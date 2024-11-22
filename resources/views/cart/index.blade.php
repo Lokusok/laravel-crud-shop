@@ -15,5 +15,11 @@
         <div class="cart-result__text">
             {{ __('Итого') }}: {{ $totalSum }} ₽
         </div>
+
+        <div>
+            <a href="{{ route('cart.download') }}" target="_blank">
+                <button>{{ __('Скачать') }}</button>
+            </a>
+        </div>
     </div>
 </x-layouts.main>
