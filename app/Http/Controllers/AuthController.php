@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Article;
 use App\Models\Cart;
 use App\Models\User;
@@ -9,6 +10,7 @@ use App\Service\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -26,12 +28,9 @@ class AuthController extends Controller
         ]);
     }
 
-    public function loginize(Request $request)
+    public function loginize(LoginRequest $request)
     {
-        $data = $request->validate([
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string']
-        ]);
+        $data = $request->validated();
 
         $isAuthenticate = false;
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Cart\StoreRequest;
 use App\Models\Article;
 use App\Models\Cart;
 use App\Service\CartService;
@@ -12,11 +13,9 @@ class CartController extends Controller
 {
     public function __construct(private CartService $cartService) {}
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $data = $request->validate([
-            'id' => ['required', 'integer', 'exists:articles,id']
-        ]);
+        $data = $request->validated();
 
         $this->cartService->put($data['id']);
 
