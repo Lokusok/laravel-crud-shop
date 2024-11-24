@@ -8,7 +8,8 @@
     </x-sub-header>
 
     @foreach ($articles as $article)
-        <x-article deletable :id="$article->id" :price="$article->price" :title="$article->title" :count="$article->count" />
+        <x-article deletable :id="$article->id" :price="$article->price" :title="$article->title" :slug="$article->slug"
+            :count="$article->count" />
     @endforeach
 
     <div class="cart-result">

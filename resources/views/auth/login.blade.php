@@ -12,6 +12,8 @@
             {{ __('Вход') }}
         </h3>
 
+        <x-flash class="mt-2" name="message" />
+
         <form action="{{ route('auth.loginize') }}" class="auth__form" method="POST">
             @csrf
 
@@ -31,6 +33,10 @@
 
                 <input class="auth__input" id="password" name="password" type="text"
                     placeholder="{{ __('Ваш пароль') }}">
+            </div>
+
+            <div class="auth__field">
+                <a href="{{ route('auth.register') }}">Нет аккаунта?</a>
             </div>
 
             @if ($errors->any())

@@ -11,6 +11,8 @@
                 {{ __('Профиль') }}
             </h3>
 
+            <x-flash class="mb-2" name="message" />
+
             <div class="profile__info">
                 <div class="profile__field">
                     <div class="profile__key">{{ __('Имя') }}:</div>
@@ -20,6 +22,11 @@
                 <div class="profile__field">
                     <div class="profile__key">{{ __('Телефон') }}:</div>
                     <div class="profile__value">{{ Auth::user()->phone }}</div>
+                </div>
+
+                <div class="profile__field">
+                    <div class="profile__key">{{ __('Аккаунт подтверждён') }}:</div>
+                    <div class="profile__value">{{ Auth::user()->is_verified ? __('Да') : __('Нет') }}</div>
                 </div>
 
                 <div class="profile__field">

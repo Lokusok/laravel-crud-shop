@@ -16,7 +16,7 @@ class LangMiddleware
         $locale = $request->route('locale');
 
         if (! in_array($locale, config('app.available_locales'))) {
-            $locale = config('app.locale');
+            $locale = Session::get('locale') ?? config('app.locale');
 
             return redirect(url($locale));
         }

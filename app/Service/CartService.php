@@ -45,12 +45,12 @@ class CartService
     public function getInfo()
     {
         $sql = self::prepareForAuth('
-                SELECT articles.id, articles.title, articles.price, COUNT(*) as count FROM articles
+                SELECT articles.id, articles.title, articles.slug, articles.price, COUNT(*) as count FROM articles
                 INNER JOIN article_user_carts on articles.id = article_user_carts.article_id
                 WHERE session_id = :session_id
         ');
 
-        $sql .= ' GROUP BY articles.id, articles.title, articles.price, article_user_carts.article_id';
+        $sql .= ' GROUP BY articles.id, articles.title, articles.slug, articles.price, article_user_carts.article_id';
 
         if (Auth::check()) {
             $res = DB::select($sql, [

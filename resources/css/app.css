@@ -15,8 +15,24 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.mt-1 {
+    margin-top: 5px;
+}
+
+.mt-2 {
+    margin-top: 10px;
+}
+
+.mb-1 {
+    margin-bottom: 5px;
+}
+
+.mb-2 {
+    margin-bottom: 10px;
+}
+
 .content {
-    max-width: 1024px;
+    max-width: 1160px;
     margin: 0 auto;
     background-color: #fff;
     min-height: 100vh;
@@ -267,4 +283,11 @@ body {
 
 .filters select {
     width: 160px;
+}
+
+.flash {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
