@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\DTO\SearchDto;
 use App\Models\Article;
-use App\Models\Category;
 use App\Service\CartService;
 use App\Service\FilterService;
 use App\Service\SearchService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
@@ -45,7 +43,7 @@ class ArticleController extends Controller
             'articles' => $articles,
             'totalPrice' => $stats->total_price,
             'count' => $stats->count,
-            'currentPage' => $request->input('page') ?? 1,
+            'currentPage' => $page,
             'lastPage' => $lastPage,
             'filters' => $filters
         ]);
