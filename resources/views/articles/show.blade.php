@@ -14,13 +14,8 @@
             </p>
 
             <div class="info-item">
-                <span class="info-item__key">{{ __('Страна производитель') }}:</span>
-                <span class="info-item__value">Россия (RU)</span>
-            </div>
-
-            <div class="info-item">
                 <span class="info-item__key">{{ __('Категория') }}:</span>
-                <span class="info-item__value">Электроника</span>
+                <span class="info-item__value">{{ $article->category->title }}</span>
             </div>
 
             <div class="info-item">

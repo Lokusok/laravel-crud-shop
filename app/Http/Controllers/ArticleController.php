@@ -2,33 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\SearchDto;
 use App\Models\Article;
+use App\Models\Category;
 use App\Service\CartService;
+use App\Service\FilterService;
+use App\Service\SearchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
-    public function __construct(private CartService $cartService) {}
+    public function __construct(
+        private CartService $cartService,
+        private SearchService $searchService,
+        private FilterService $filterService
+    ) {}
 
     public function index(Request $request)
     {
         $page = $request->input('page') ?? 1;
 
-        $articles = Cache::remember("articles.{$page}", 60, function () {
-            return Article::query()->paginate(10, pageName: 'page');
-        });
+        $perPage = 10;
+        $pageName = 'page';
+
+        $searchDto = new SearchDto(
+            $request->input('category'),
+            $request->input('date'),
+            $request->input('query'),
+            (int)$page,
+            $perPage,
+            $pageName
+        );
+
+        $articles = $this->searchService->search($searchDto);
+        $stats = $this->cartService->getStats();
+        $filters = $this->filterService->getFilters();
 
         $lastPage = $articles->lastPage();
-
-        $stats = $this->cartService->getStats();
 
         return view('articles.index', [
             'articles' => $articles,
             'totalPrice' => $stats->total_price,
             'count' => $stats->count,
             'currentPage' => $request->input('page') ?? 1,
-            'lastPage' => $lastPage
+            'lastPage' => $lastPage,
+            'filters' => $filters
         ]);
     }
 
@@ -38,7 +57,7 @@ class ArticleController extends Controller
 
         $article = Article::query()->where([
             'slug' => $slug
-        ])->first();
+        ])->with('category')->first();
 
         $stats = $this->cartService->getStats();
 

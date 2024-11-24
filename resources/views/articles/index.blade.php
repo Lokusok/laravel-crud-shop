@@ -2,6 +2,42 @@
     <x-header :title="__('Магазин')" />
 
     <x-sub-header>
+        <form class="filters__form" action="{{ route('articles.index') }}" method="GET">
+            <div class="filters">
+                <div class="filters__category">
+                    <select name="category">
+                        <option value="all">Все</option>
+
+                        @foreach ($filters['categories'] as $category)
+                            <option value="{{ $category['slug'] }}" @selected(request()->input('category') === $category['slug'])>
+                                {{ $category['title'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="filters__date">
+                    <select name="date">
+                        @foreach ($filters['date'] as $dateFilter)
+                            <option value="{{ $dateFilter['value'] }}" @selected(request()->input('date') === $dateFilter['value'])>
+                                {{ $dateFilter['label'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="filters__search">
+                    <input value="{{ request()->input('query') }}" type="text" name="query" placeholder="Поиск">
+                </div>
+
+                <button type="submit">Искать</button>
+            </div>
+        </form>
+
+        <a href="{{ route('articles.index') }}">
+            <button type="submit">Сбросить</button>
+        </a>
+
         <x-basket :count="$count" :total-price="$totalPrice" />
     </x-sub-header>
 
@@ -9,11 +45,19 @@
         <x-article :id="$article->id" :price="$article->price" :title="$article->title" :slug="$article->slug" />
     @endforeach
 
-    <div class="pagination">
-        @for ($i = 1; $i <= $lastPage; $i++)
-            <a href="?page={{ $i }}" class="pagination__item {{ $i == $currentPage ? 'current' : '' }}">
-                {{ $i }}
-            </a>
-        @endfor
-    </div>
+    @if ($lastPage !== 1)
+        <div class="pagination">
+            @for ($i = 1; $i <= $lastPage; $i++)
+                <a href="{{ route('articles.index', [
+                    'page' => $i,
+                    'category' => request()->input('category'),
+                    'date' => request()->input('date'),
+                    'query' => request()->input('query'),
+                ]) }}"
+                    class="pagination__item {{ $i == $currentPage ? 'current' : '' }}">
+                    {{ $i }}
+                </a>
+            @endfor
+        </div>
+    @endif
 </x-layouts.main>

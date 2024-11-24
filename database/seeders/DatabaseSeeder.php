@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Article;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Str;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -165,13 +166,31 @@ class DatabaseSeeder extends Seeder
             ]
         ];
 
+        $categories = [
+            [
+                'id' => 1,
+                'title' => 'Книги',
+                'slug' => Str::slug('Книги')
+            ],
+            [
+                'id' => 2,
+                'title' => 'Курсы',
+                'slug' => Str::slug('Курсы')
+            ]
+        ];
+
+        foreach ($categories as $category) {
+            Category::create($category);
+        }
+
         foreach ($articles as $article) {
             Article::create([
                 'title' => $article['title'],
                 'slug' => Str::slug($article['title']),
                 'description' => fake()->sentence(3),
                 'year' => fake()->year(max: 'now'),
-                'price' => $article['price']
+                'price' => $article['price'],
+                'category_id' => $categories[array_rand($categories)]['id'],
             ]);
         }
     }

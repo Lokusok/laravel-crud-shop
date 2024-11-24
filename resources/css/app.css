@@ -249,3 +249,22 @@ body {
 .profile__value {
     font-weight: bold;
 }
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filters__form {
+    margin-right: 10px;
+}
+
+.filters input,
+.filters select {
+    padding: 3px;
+}
+
+.filters select {
+    width: 160px;
+}
