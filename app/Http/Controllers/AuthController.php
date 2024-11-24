@@ -35,6 +35,10 @@ class AuthController extends Controller
             'email' => $data['email']
         ])->first();
 
+        if (is_null($user)) {
+            return redirect()->route('auth.login');
+        }
+
         if (Hash::check($data['password'], $user->password)) {
             Cart::query()->where('session_id', Session::getId())->update([
                 'user_id' => $user->id
