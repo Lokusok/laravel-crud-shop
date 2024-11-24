@@ -18,11 +18,15 @@
     "Удалить": "Eliminar",
     "шт": "uds",
     "Вход": "Iniciar sesión",
-    "Логин": "Iniciar sesión",
-    "Ваш логин": "Tu nombre de usuario",
+    "Логин": "Usuario",
+    "Ваш логин": "Tu usuario",
     "Ваш пароль": "Tu contraseña",
     "Войти": "Iniciar sesión",
     "Итого": "Total",
     "Пусто": "Vacío",
-    "Скачать": "Descargar"
+    "Скачать": "Descargar",
+    "Цена": "Precio",
+    "Страна производитель": "País de origen",
+    "Категория": "Categoría",
+    "Год выпуска": "Año"
 }

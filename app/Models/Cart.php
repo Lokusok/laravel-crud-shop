@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,5 +21,15 @@ class Cart extends Pivot
     public function article(): BelongsTo
     {
         return $this->belongsTo(Article::class, 'article_id', 'id');
+    }
+
+    public function scopeByUserId(Builder $query, string $userId): void
+    {
+        $query->where('user_id', $userId);
+    }
+
+    public function scopeBySessionId(Builder $query, string $sessionId): void
+    {
+        $query->where('session_id', $sessionId);
     }
 }

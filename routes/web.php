@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/{locale?}')->middleware(LangMiddleware::class)->group(function () {
     Route::get('/', [ArticleController::class, 'index'])->name('articles.index');
 
+    Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('articles.show');
+
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::match(['GET', 'POST'], '/cart/download', [CartController::class, 'download'])->name('cart.download');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-
 
     Route::post('/lang', [LangController::class, 'switch'])->name('lang.switch');
 

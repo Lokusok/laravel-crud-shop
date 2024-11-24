@@ -56,6 +56,19 @@ body {
     border-top: 1px dashed #ccc;
 }
 
+.article__title {
+    text-decoration: none;
+    color: #000;
+}
+
+.article__title:hover {
+    text-decoration: underline;
+}
+
+.article__title:active {
+    opacity: 0.5;
+}
+
 .article__entities {
     display: flex;
     align-items: center;
@@ -70,6 +83,21 @@ body {
 .article__actions {
     display: flex;
     gap: 20px;
+}
+
+.article-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.article-info__price {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.info-item__value {
+    font-weight: bold;
 }
 
 .sub-header {

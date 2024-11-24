@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Article;
 use App\Models\User;
+use Illuminate\Support\Str;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -167,6 +168,9 @@ class DatabaseSeeder extends Seeder
         foreach ($articles as $article) {
             Article::create([
                 'title' => $article['title'],
+                'slug' => Str::slug($article['title']),
+                'description' => fake()->sentence(3),
+                'year' => fake()->year(max: 'now'),
                 'price' => $article['price']
             ]);
         }

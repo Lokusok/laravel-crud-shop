@@ -21,8 +21,12 @@
     "Логин": "Benutzername",
     "Ваш логин": "Ihr Benutzername",
     "Ваш пароль": "Ihr Passwort",
-    "Войти": "Einloggen",
+    "Войти": "Anmelden",
     "Итого": "Gesamt",
     "Пусто": "Leer",
-    "Скачать": "Herunterladen"
+    "Скачать": "Herunterladen",
+    "Цена": "Preis",
+    "Страна производитель": "Herkunftsland",
+    "Категория": "Kategorie",
+    "Год выпуска": "Jahr"
 }

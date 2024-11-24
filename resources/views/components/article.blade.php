@@ -1,9 +1,9 @@
-@props(['id', 'title', 'price', 'count' => null, 'deletable' => false])
+@props(['id', 'title', 'slug', 'price', 'count' => null, 'deletable' => false])
 
 <article class="article">
     <div class="article__info">
         <span class="article__id">{{ $id }}</span>
-        <span class="article__title">{{ $title }}</span>
+        <a href="{{ route('articles.show', [$slug]) }}" class="article__title">{{ $title }}</a>
     </div>
 
     <div class="article__actions">

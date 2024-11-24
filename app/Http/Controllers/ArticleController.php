@@ -31,4 +31,24 @@ class ArticleController extends Controller
             'lastPage' => $lastPage
         ]);
     }
+
+    public function show(Request $request)
+    {
+        $slug = $request->route('slug');
+
+        $article = Article::query()->where([
+            'slug' => $slug
+        ])->first();
+
+        $stats = $this->cartService->getStats();
+
+        $title = __('Магазин') . ' | ' . $article->title;
+
+        return view('articles.show', [
+            'article' => $article,
+            'totalPrice' => $stats->total_price,
+            'count' => $stats->count,
+            'title' => $title
+        ]);
+    }
 }

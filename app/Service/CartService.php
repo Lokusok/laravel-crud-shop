@@ -66,9 +66,9 @@ class CartService
         $sum = Cart::query();
 
         if (Auth::check()) {
-            $sum = $sum->where('user_id', Auth::user()->id);
+            $sum = $sum->byUserId(Auth::user()->id);
         } else {
-            $sum = $sum->where('session_id', Session::getId());
+            $sum = $sum->bySessionId(Session::getId());
         }
 
         $sum = $sum->with('article')->get()->pluck('article')->pluck('price')->sum();

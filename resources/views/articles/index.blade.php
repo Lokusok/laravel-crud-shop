@@ -6,7 +6,7 @@
     </x-sub-header>
 
     @foreach ($articles as $article)
-        <x-article :id="$article->id" :price="$article->price" :title="$article->title" />
+        <x-article :id="$article->id" :price="$article->price" :title="$article->title" :slug="$article->slug" />
     @endforeach
 
     <div class="pagination">
