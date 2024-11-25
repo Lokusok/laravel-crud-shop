@@ -38,7 +38,7 @@ class EmailVerify extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.emails.verify',
+            view: 'mail.verify',
         );
     }
 

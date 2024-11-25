@@ -22,9 +22,10 @@ Route::get('/only-auth/authorize', function () {
     return 'Authorized';
 });
 
-Route::get('/email_verify/{token}', [UserController::class, 'verifyEmail'])
-    ->name('email.verify')
-    ->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/email_verify/{token}', [UserController::class, 'verifyEmail'])->name('email.verify');
+    Route::post('/email_verify', [UserController::class, 'verifyEmailAgain'])->name('email.verify.resend');
+});
 
 Route::prefix('/{locale?}')->middleware(LangMiddleware::class)->group(function () {
     Route::get('/', [ArticleController::class, 'index'])->name('articles.index');

@@ -26,7 +26,17 @@
 
                 <div class="profile__field">
                     <div class="profile__key">{{ __('Аккаунт подтверждён') }}:</div>
-                    <div class="profile__value">{{ Auth::user()->is_verified ? __('Да') : __('Нет') }}</div>
+                    <div class="profile__value" style="display: flex; column-gap: 10px;">
+                        {{ Auth::user()->is_verified ? __('Да') : __('Нет (проверьте почту)') }}
+
+                        @if ($showEmailVerifySend && !Auth::user()->is_verified)
+                            <form action="{{ route('email.verify.resend') }}" method="POST">
+                                @csrf
+
+                                <button>{{ __('Переслать подтверждение') }}</button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="profile__field">
