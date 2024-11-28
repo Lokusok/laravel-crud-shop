@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DTO\SearchDto;
-use App\Models\Article;
+use App\Http\Requests\Article\UpdateRequest;
 use App\Models\Category;
+use App\Repository\ArticleRepository;
 use App\Service\CartService;
 use App\Service\FilterService;
 use App\Service\SearchService;
@@ -16,7 +17,8 @@ class ArticleController extends Controller
     public function __construct(
         private CartService $cartService,
         private SearchService $searchService,
-        private FilterService $filterService
+        private FilterService $filterService,
+        private ArticleRepository $articleRepository
     ) {}
 
     public function index(Request $request)
@@ -55,13 +57,7 @@ class ArticleController extends Controller
     {
         $slug = $request->route('slug');
 
-        $article = Article::query()->where([
-            'slug' => $slug
-        ])->with('category')->first();
-
-        if (! $article) {
-            return abort(404);
-        }
+        $article = $this->articleRepository->findBySlug($slug) or abort(404);
 
         $stats = $this->cartService->getStats();
 
@@ -81,30 +77,18 @@ class ArticleController extends Controller
 
         $categories = Category::query()->get();
 
-        $article = Article::query()->where([
-            'slug' => $slug
-        ])->with('category')->first();
-
-        if (! $article) {
-            return abort(404);
-        }
+        $article = $this->articleRepository->findBySlug($slug) or abort(404);
 
         return view('articles.edit', compact('article', 'categories'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateRequest $request)
     {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'year' => ['required', 'integer', 'max:2050']
-        ]);
+        $data = $request->validated();
 
         $slug = $request->route('slug');
 
-        $article = Article::query()->where([
-            'slug' => $slug
-        ])->with('category')->first();
+        $article = $this->articleRepository->findBySlug($slug) or abort(404);
 
         $article->update($data);
 
@@ -115,13 +99,7 @@ class ArticleController extends Controller
     {
         $slug = $request->route('slug');
 
-        $article = Article::query()->where([
-            'slug' => $slug
-        ])->with('category')->first();
-
-        if (! $article) {
-            return abort(404);
-        }
+        $article = $this->articleRepository->findBySlug($slug) or abort(404);
 
         $article->delete();
 
