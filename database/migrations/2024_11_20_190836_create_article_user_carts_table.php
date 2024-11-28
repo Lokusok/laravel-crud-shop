@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('article_id');
-            $table->foreign('article_id')->references('id')->on('articles');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
 
             $table->string('session_id')->nullable();
             $table->foreign('session_id')->references('id')->on('sessions')->onDelete('no action');

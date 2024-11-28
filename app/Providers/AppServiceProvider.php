@@ -34,5 +34,9 @@ class AppServiceProvider extends ServiceProvider
 
             return $result;
         });
+
+        Gate::define('admin', function (User $user) {
+            return $user->isAdmin;
+        });
     }
 }

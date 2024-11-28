@@ -34,6 +34,21 @@
 
                     <button>{{ __('Добавить') }}</button>
                 </form>
+
+                @can('admin')
+                    <div class="article-info__options">
+                        <a href="{{ route('articles.edit', [$article->slug]) }}">
+                            <button>Изменить</button>
+                        </a>
+
+                        <form action="{{ route('articles.destroy', [$article->slug]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit">Удалить</button>
+                        </form>
+                    </div>
+                @endcan
             </div>
         </div>
     </x-content>

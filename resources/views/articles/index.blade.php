@@ -1,6 +1,12 @@
 <x-layouts.main :title="__('Магазин')">
     <x-header :title="__('Магазин')" />
 
+    @session('message')
+        <div class="p-3">
+            <x-flash name="message" />
+        </div>
+    @endsession
+
     <x-sub-header>
         <form class="filters__form" action="{{ route('articles.index') }}" method="GET">
             <div class="filters">

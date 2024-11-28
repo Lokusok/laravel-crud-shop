@@ -13,11 +13,17 @@ class Article extends Model
     protected $fillable = [
         'title',
         'price',
-        'slug'
+        'slug',
+        'year'
     ];
 
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

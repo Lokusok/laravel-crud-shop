@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\DTO\SearchDto;
 use App\Models\Article;
+use App\Models\Category;
 use App\Service\CartService;
 use App\Service\FilterService;
 use App\Service\SearchService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
@@ -58,7 +60,7 @@ class ArticleController extends Controller
         ])->with('category')->first();
 
         if (! $article) {
-            abort(404);
+            return abort(404);
         }
 
         $stats = $this->cartService->getStats();
@@ -71,5 +73,60 @@ class ArticleController extends Controller
             'count' => $stats->count,
             'title' => $title
         ]);
+    }
+
+    public function edit(Request $request)
+    {
+        $slug = $request->route('slug');
+
+        $categories = Category::query()->get();
+
+        $article = Article::query()->where([
+            'slug' => $slug
+        ])->with('category')->first();
+
+        if (! $article) {
+            return abort(404);
+        }
+
+        return view('articles.edit', compact('article', 'categories'));
+    }
+
+    public function update(Request $request)
+    {
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'year' => ['required', 'integer', 'max:2050']
+        ]);
+
+        $slug = $request->route('slug');
+
+        $article = Article::query()->where([
+            'slug' => $slug
+        ])->with('category')->first();
+
+        $article->update($data);
+
+        return back()->with('message', __('Изменено успешно'));
+    }
+
+    public function destroy(Request $request)
+    {
+        $slug = $request->route('slug');
+
+        $article = Article::query()->where([
+            'slug' => $slug
+        ])->with('category')->first();
+
+        if (! $article) {
+            return abort(404);
+        }
+
+        $article->delete();
+
+        Cache::flush();
+
+        return redirect()->route('articles.index')->with('message', __('Удалено успешно'));
     }
 }

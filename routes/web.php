@@ -31,6 +31,9 @@ Route::prefix('/{locale?}')->middleware(LangMiddleware::class)->group(function (
     Route::get('/', [ArticleController::class, 'index'])->name('articles.index');
 
     Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('articles.show');
+    Route::get('/articles/{slug}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('/articles/{slug}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('/articles/{slug}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

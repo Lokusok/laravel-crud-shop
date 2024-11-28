@@ -15,6 +15,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.p-3 {
+    padding: 15px;
+}
+
 .mt-1 {
     margin-top: 5px;
 }
@@ -219,6 +223,7 @@ body {
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+    max-width: 220px;
 }
 
 .auth__label {
@@ -226,6 +231,7 @@ body {
 }
 
 .auth__input {
+    width: 100%;
     padding: 3px 5px;
 }
 
@@ -290,4 +296,12 @@ body {
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
+}
+
+.article-info__options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
 }

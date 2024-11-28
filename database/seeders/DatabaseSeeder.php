@@ -193,5 +193,7 @@ class DatabaseSeeder extends Seeder
                 'category_id' => $categories[array_rand($categories)]['id'],
             ]);
         }
+
+        $this->call(UserSeeder::class);
     }
 }
