@@ -57,6 +57,10 @@ class ArticleController extends Controller
             'slug' => $slug
         ])->with('category')->first();
 
+        if (! $article) {
+            abort(404);
+        }
+
         $stats = $this->cartService->getStats();
 
         $title = __('Магазин') . ' | ' . $article->title;
