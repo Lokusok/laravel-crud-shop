@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
 
             $table->string('session_id')->nullable();
-            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('no action');
 
             $table->timestamps();
         });
