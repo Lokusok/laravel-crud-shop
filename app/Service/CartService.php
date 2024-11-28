@@ -95,4 +95,11 @@ class CartService
             ]);
         }
     }
+
+    public function fromSessionToUser(string $sessionId, string $userId): void
+    {
+        Cart::query()->where('session_id', $sessionId)->update([
+            'user_id' => $userId
+        ]);
+    }
 }

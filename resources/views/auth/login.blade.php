@@ -50,6 +50,18 @@
             <div class="auth__field">
                 <button type="submit">{{ __('Войти') }}</button>
             </div>
+
+            <hr>
+
+            <div class="auth__advanced">
+                <a href="{{ route('oauth.github.redirect') }}">
+                    <button type="button">{{ __('Войти через') . ' ' . 'Github' }}</button>
+                </a>
+
+                <a href="{{ route('oauth.google.redirect') }}">
+                    <button type="button">{{ __('Войти через') . ' ' . 'Gmail' }}</button>
+                </a>
+            </div>
         </form>
     </x-content>
 </x-layouts.main>

@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\LangMiddleware;
@@ -54,5 +55,17 @@ Route::prefix('/{locale?}')->middleware(LangMiddleware::class)->group(function (
         Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    });
+});
+
+Route::middleware(['guest'])->controller(OAuthController::class)->group(function () {
+    Route::prefix('/oauth/github')->group(function () {
+        Route::get('/redirect', 'githubRedirect')->name('oauth.github.redirect');
+        Route::get('/callback', 'githubAuthenticate');
+    });
+
+    Route::prefix('/oauth/google')->group(function () {
+        Route::get('/redirect', 'googleRedirect')->name('oauth.google.redirect');
+        Route::get('/callback', 'googleAuthenticate');
     });
 });

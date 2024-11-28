@@ -44,9 +44,7 @@ class AuthController extends Controller
         }
 
         if (Hash::check($data['password'], $user->password)) {
-            Cart::query()->where('session_id', Session::getId())->update([
-                'user_id' => $user->id
-            ]);
+            $this->cartService->fromSessionToUser(Session::getId(), $user->id);
 
             Auth::login($user);
 
