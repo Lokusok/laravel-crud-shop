@@ -33,15 +33,16 @@
                 </div>
 
                 <div class="filters__search">
-                    <input value="{{ request()->input('query') }}" type="text" name="query" placeholder="Поиск">
+                    <input value="{{ request()->input('query') }}" type="text" name="query"
+                        placeholder="{{ __('Поиск') }}">
                 </div>
 
-                <button type="submit">Искать</button>
+                <button type="submit">{{ __('Искать') }}</button>
             </div>
         </form>
 
         <a href="{{ route('articles.index') }}">
-            <button type="submit">Сбросить</button>
+            <button type="submit">{{ __('Сбросить') }}</button>
         </a>
 
         <x-basket :count="$count" :total-price="$totalPrice" />

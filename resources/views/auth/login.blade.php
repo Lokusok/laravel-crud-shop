@@ -14,46 +14,46 @@
 
         <x-flash class="mt-2" name="message" />
 
-        <form action="{{ route('auth.loginize') }}" class="auth__form" method="POST">
+        <form action="{{ route('auth.loginize') }}" class="action__form" method="POST">
             @csrf
 
-            <div class="auth__field">
-                <label for="email" class="auth__label">
+            <div class="action__field">
+                <label for="email" class="action__label">
                     {{ __('Логин') }}:
                 </label>
 
-                <input value="{{ old('email') }}" class="auth__input" id="email" name="email" type="text"
+                <input value="{{ old('email') }}" class="action__input" id="email" name="email" type="text"
                     placeholder="{{ __('Ваш логин') }}">
             </div>
 
-            <div class="auth__field">
-                <label for="password" class="auth__label">
+            <div class="action__field">
+                <label for="password" class="action__label">
                     {{ __('Пароль') }}:
                 </label>
 
-                <input class="auth__input" id="password" name="password" type="text"
+                <input class="action__input" id="password" name="password" type="text"
                     placeholder="{{ __('Ваш пароль') }}">
             </div>
 
-            <div class="auth__field">
-                <a href="{{ route('auth.register') }}">Нет аккаунта?</a>
+            <div class="action__field">
+                <a href="{{ route('auth.register') }}">{{ __('Нет аккаунта?') }}</a>
             </div>
 
             @if ($errors->any())
-                <div class="auth__field auth__errors">
+                <div class="action__field action__errors">
                     @foreach ($errors->all() as $error)
-                        <span class="auth__error">{{ $error }}</span>
+                        <span class="action__error">{{ $error }}</span>
                     @endforeach
                 </div>
             @endif
 
-            <div class="auth__field">
+            <div class="action__field">
                 <button type="submit">{{ __('Войти') }}</button>
             </div>
 
             <hr>
 
-            <div class="auth__advanced">
+            <div class="action__advanced">
                 <a href="{{ route('oauth.github.redirect') }}">
                     <button type="button">{{ __('Войти через') . ' ' . 'Github' }}</button>
                 </a>

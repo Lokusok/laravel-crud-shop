@@ -218,7 +218,7 @@ body {
     font-weight: 700;
 }
 
-.auth__form {
+.action__form {
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -226,27 +226,27 @@ body {
     max-width: 220px;
 }
 
-.auth__label {
+.action__label {
     display: block;
 }
 
-.auth__input {
+.action__input {
     width: 100%;
     padding: 3px 5px;
 }
 
-.auth__errors {
+.action__errors {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
 }
 
-.auth__error {
+.action__error {
     color: red;
     display: block;
 }
 
-.auth__advanced {
+.action__advanced {
     display: flex;
     gap: 10px;
 }

@@ -38,14 +38,14 @@
                 @can('admin')
                     <div class="article-info__options">
                         <a href="{{ route('articles.edit', [$article->slug]) }}">
-                            <button>Изменить</button>
+                            <button>{{ __('Изменить') }}</button>
                         </a>
 
                         <form action="{{ route('articles.destroy', [$article->slug]) }}" method="POST">
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit">Удалить</button>
+                            <button type="submit">{{ __('Удалить') }}</button>
                         </form>
                     </div>
                 @endcan

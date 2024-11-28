@@ -15,25 +15,25 @@
             </a>
         @endif
 
-        <form action="{{ route('articles.update', [$article->slug]) }}" class="auth__form" method="POST">
+        <form action="{{ route('articles.update', [$article->slug]) }}" class="action__form" method="POST">
             @csrf
             @method('PUT')
 
-            <div class="auth__field">
-                <label for="title" class="auth__label">
+            <div class="action__field">
+                <label for="title" class="action__label">
                     {{ __('Название товара') }}:
                 </label>
 
-                <input value="{{ old('title', $article->title) }}" class="auth__input" id="title" name="title"
+                <input value="{{ old('title', $article->title) }}" class="action__input" id="title" name="title"
                     type="text" placeholder="{{ __('Название товара') }}">
             </div>
 
-            <div class="auth__field">
-                <label for="category_id" class="auth__label">
+            <div class="action__field">
+                <label for="category_id" class="action__label">
                     {{ __('Категория') }}:
                 </label>
 
-                <select class="auth__input" name="category_id" id="category_id">
+                <select class="action__input" name="category_id" id="category_id">
                     @foreach ($categories as $category)
                         <option @selected($article->category_id === $category->id) value="{{ $category->id }}">
                             {{ $category->title }}
@@ -42,24 +42,24 @@
                 </select>
             </div>
 
-            <div class="auth__field">
-                <label for="year" class="auth__label">
+            <div class="action__field">
+                <label for="year" class="action__label">
                     {{ __('Год выпуска') }}:
                 </label>
 
-                <input value="{{ old('year', $article->year) }}" class="auth__input" id="year" name="year"
+                <input value="{{ old('year', $article->year) }}" class="action__input" id="year" name="year"
                     type="text" placeholder="{{ __('Год выпуска') }}">
             </div>
 
             @if ($errors->any())
-                <div class="auth__field auth__errors">
+                <div class="action__field action__errors">
                     @foreach ($errors->all() as $error)
-                        <span class="auth__error">{{ $error }}</span>
+                        <span class="action__error">{{ $error }}</span>
                     @endforeach
                 </div>
             @endif
 
-            <div class="auth__field">
+            <div class="action__field">
                 <button type="submit">{{ __('Изменить') }}</button>
             </div>
         </form>
