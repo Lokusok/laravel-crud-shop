@@ -8,6 +8,10 @@
     @endsession
 
     <x-sub-header>
+        <div class="pr-3">
+            <x-nav />
+        </div>
+
         <form class="filters__form" action="{{ route('articles.index') }}" method="GET">
             <div class="filters">
                 <div class="filters__category">

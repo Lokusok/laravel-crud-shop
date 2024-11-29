@@ -7,6 +7,7 @@ use App\Http\Controllers\LangController;
 use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Middleware\LangMiddleware;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,8 @@ Route::prefix('/{locale?}')->middleware(LangMiddleware::class)->group(function (
     Route::match(['GET', 'POST'], '/cart/download', [CartController::class, 'download'])->name('cart.download');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+    Route::get('/community', [CommunityController::class, 'index'])->name('community.index');
+
     Route::post('/lang', [LangController::class, 'switch'])->name('lang.switch');
 
     Route::middleware('guest')->group(function () {
@@ -58,6 +61,7 @@ Route::prefix('/{locale?}')->middleware(LangMiddleware::class)->group(function (
     });
 });
 
+/* OAuth */
 Route::middleware(['guest'])->controller(OAuthController::class)->group(function () {
     Route::prefix('/oauth/github')->group(function () {
         Route::get('/redirect', 'githubRedirect')->name('oauth.github.redirect');

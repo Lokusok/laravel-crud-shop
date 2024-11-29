@@ -8,9 +8,9 @@
     </x-sub-header>
 
     <x-content>
-        <h3 class="auth__title">
+        <x-title>
             {{ __('Регистрация') }}
-        </h3>
+        </x-title>
 
         <form action="{{ route('auth.registerize') }}" class="action__form" method="POST">
             @csrf

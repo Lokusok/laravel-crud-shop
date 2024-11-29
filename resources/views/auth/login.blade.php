@@ -8,9 +8,9 @@
     </x-sub-header>
 
     <x-content>
-        <h3 class="auth__title">
+        <x-title>
             {{ __('Вход') }}
-        </h3>
+        </x-title>
 
         <x-flash class="mt-2" name="message" />
 
