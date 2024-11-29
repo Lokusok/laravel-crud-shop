@@ -28,15 +28,5 @@ class AppServiceProvider extends ServiceProvider
             $cases = array(2, 0, 1, 1, 1, 2);
             return $titles[($n % 100 > 4 && $n % 100 < 20) ? 2 : $cases[min($n % 10, 5)]];
         });
-
-        Gate::define('see-auth', function (User $user) {
-            $result = Session::get('can_see');
-
-            return $result;
-        });
-
-        Gate::define('admin', function (User $user) {
-            return $user->isAdmin;
-        });
     }
 }
