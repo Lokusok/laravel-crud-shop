@@ -26,7 +26,15 @@
 
                         <p x-text="message.content" class="message__body"></p>
 
-                        <div x-text="message.date" class="message__footer"></div>
+                        <div class="message__footer">
+                            <span x-text="message.date" class="message__date"></span>
+
+                            <template x-if="message.from_me">
+                                <button @click="(e) => $store.chat.handleClickDeleteButton(e, message)">
+                                    {{ __('Удалить') }}
+                                </button>
+                            </template>
+                        </div>
                     </div>
                 </template>
             </div>
@@ -65,6 +73,16 @@
 
             messages: [],
 
+            handleClickDeleteButton(event, message) {
+                event.target.disabled = true;
+
+                try {
+                    this.deleteMessage(message.id)
+                } catch (e) {
+                    event.target.disabled = false;
+                }
+            },
+
             startListen() {
                 console.log('Connected to test');
 
@@ -75,6 +93,12 @@
                             this.messages.push(data);
                         });
                 }, 3000);
+            },
+
+            async deleteMessage(messageId) {
+                const response = await axios.delete(`/api/community/messages/${messageId}`);
+
+                this.messages = this.messages.filter((m) => m.id !== messageId);
             },
 
             async getMessages() {

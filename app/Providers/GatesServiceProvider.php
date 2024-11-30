@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
@@ -24,6 +25,10 @@ class GatesServiceProvider extends ServiceProvider
 
         Gate::define('admin', function (User $user) {
             return $user->isAdmin;
+        });
+
+        Gate::define('delete-message', function (User $user, Message $message) {
+            return $user->id === $message->user_id;
         });
     }
 }

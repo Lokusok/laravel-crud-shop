@@ -18,4 +18,5 @@ Route::controller(CartController::class)->group(function () {
 Route::middleware(['web'])->controller(MessageController::class)->group(function () {
     Route::get('/community/messages', 'index')->name('messages.index');
     Route::post('/community/messages', 'store')->name('messages.store');
+    Route::delete('/community/messages/{message}', 'destroy')->name('messages.destroy');
 });

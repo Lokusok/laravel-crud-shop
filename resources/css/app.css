@@ -399,6 +399,12 @@ body {
 
 .message__footer {
     padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message__date {
     color: #ccc;
     font-size: 12px;
 }

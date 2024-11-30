@@ -8,6 +8,7 @@ use App\Http\Resources\Message\MessageResource;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class MessageController extends Controller
 {
@@ -31,5 +32,20 @@ class MessageController extends Controller
         broadcast(new NewMessageEvent($message))->toOthers();
 
         return MessageResource::make($message);
+    }
+
+    public function destroy(Message $message)
+    {
+        if (! Gate::allows('delete-message', $message)) {
+            return response([
+                'message' => __('Недостаточно прав для удаления сообщения')
+            ], 403);
+        }
+
+        $message->delete();
+
+        return response([
+            'message' => __('Сообщение успешно удалено')
+        ], 200);
     }
 }
