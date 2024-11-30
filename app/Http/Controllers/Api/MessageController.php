@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\NewMessageEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Message\MessageResource;
 use App\Models\Message;
@@ -26,6 +27,8 @@ class MessageController extends Controller
         $data['user_id'] = Auth::user()->id;
 
         $message = Message::query()->create($data);
+
+        NewMessageEvent::dispatch($message);
 
         return MessageResource::make($message);
     }
