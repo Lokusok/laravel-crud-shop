@@ -28,7 +28,7 @@ class MessageController extends Controller
 
         $message = Message::query()->create($data);
 
-        NewMessageEvent::dispatch($message);
+        broadcast(new NewMessageEvent($message))->toOthers();
 
         return MessageResource::make($message);
     }

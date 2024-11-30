@@ -34,9 +34,9 @@ class NewMessageEvent implements ShouldBroadcast
 
     public function broadcastWith(): array
     {
-        return [
-            'id' => 1,
-            'content' => 'Bla-Bla'
-        ];
+        $resourceData = MessageResource::make($this->message);
+        $arrayData = json_decode($resourceData->toJson(), true);
+
+        return $arrayData;
     }
 }

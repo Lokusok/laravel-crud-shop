@@ -31,7 +31,10 @@
                 </template>
             </div>
 
-            <div x-init="() => $store.chat.getMessages()" x-data class="chat-actions">
+            <div x-init="() => {
+                $store.chat.getMessages();
+                $store.chat.startListen();
+            }" x-data class="chat-actions">
                 <form @submit.prevent="() => $store.chat.sendMessage()" class="chat-actions__form">
                     <textarea x-model="$store.chat.content" id="chat-message" placeholder="{{ __('Ваше сообщение') }}"
                         class="chat-actions__textarea" type="text"></textarea>
@@ -62,6 +65,18 @@
 
             messages: [],
 
+            startListen() {
+                console.log('Connected to test');
+
+                setTimeout(() => {
+                    Echo.channel('test')
+                        .listen('.test-event', (data) => {
+                            console.log('data: ', data);
+                            this.messages.push(data);
+                        });
+                }, 3000);
+            },
+
             async getMessages() {
                 this.waiting = true;
 
@@ -70,6 +85,7 @@
 
                     this.messages = response.data.data;
                 } catch (e) {
+                    console.log('here', e);
                     this.error = "{{ __('Произошла ошибка') }}";
                 } finally {
                     this.waiting = false;
@@ -103,3 +119,14 @@
         });
     });
 </script>
+
+{{-- <script>
+    setTimeout(() => {
+        console.log('Connected to test');
+
+        Echo.channel('test')
+            .listen('.test-event', (data) => {
+                console.log('data: ', data);
+            });
+    }, 3000);
+</script> --}}
