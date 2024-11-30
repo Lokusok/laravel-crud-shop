@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
         integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -32,7 +33,9 @@
                 const submitBtn = form.querySelector('button[type="submit"]');
 
                 form.addEventListener('submit', () => {
-                    submitBtn.disabled = true;
+                    if (!submitBtn.hasAttribute('data-prevent-disable')) {
+                        submitBtn.disabled = true;
+                    }
                 });
             }
         });

@@ -6,6 +6,10 @@
     padding: 0;
 }
 
+[x-cloak] {
+    display: none;
+}
+
 button {
     padding: 1px 8px;
 }
@@ -40,7 +44,7 @@ body {
 }
 
 .content {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
     background-color: #fff;
     min-height: 100vh;
@@ -354,13 +358,17 @@ body {
     resize: none;
 }
 
+.chat-actions__error {
+    color: red;
+}
+
 .chat-actions__button {
     padding: 3px 5px;
     align-self: flex-end;
 }
 
 .message {
-    max-width: 300px;
+    width: 300px;
     display: flex;
     flex-direction: column;
 }
