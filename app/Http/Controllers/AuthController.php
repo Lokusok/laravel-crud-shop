@@ -8,6 +8,7 @@ use App\Mail\EmailVerify;
 use App\Models\Cart;
 use App\Models\User;
 use App\Service\CartService;
+use App\Service\MailVerifyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,10 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    public function __construct(private CartService $cartService) {}
+    public function __construct(
+        private CartService $cartService,
+        private MailVerifyService $mailVerifyService
+    ) {}
 
     public function login()
     {
@@ -74,14 +78,9 @@ class AuthController extends Controller
 
         $user = User::query()->create($data);
 
-        $user->emailVerifyToken()->create([
-            'value' => Str::random()
-        ]);
+        $this->mailVerifyService->sendVerifyMessage($user);
 
-        // Отправка сообщения
-        Mail::to($user)->send(new EmailVerify($user));
-
-        return redirect()->route('auth.login')->with('message', __('Регистрация прошла успешно.'));
+        return redirect()->route('auth.login')->with('message', __('Регистрация прошла успешно. Теперь вы можете войти в аккаунт'));
     }
 
     public function logout(Request $request)

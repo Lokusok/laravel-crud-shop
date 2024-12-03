@@ -14,8 +14,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $tokenCreatedAt = Carbon::create($user->emailVerifyToken?->created_at);
-        $showEmailVerifySend = $tokenCreatedAt->diffInHours(Carbon::now()) > 8;
+        $showEmailVerifySend = $this->mailVerifyService->showResend($user, minHours: 8);
 
         return view('profile.index', compact('showEmailVerifySend'));
     }
