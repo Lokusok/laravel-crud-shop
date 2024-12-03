@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Cart",
+        "title": "Laravel CRUD",
         "version": "1.0.0"
     },
     "paths": {
@@ -126,12 +126,163 @@
                     }
                 }
             }
+        },
+        "/api/community/messages": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "operationId": "7ed22acf70b24517e8851d1fe7f270b2",
+                "responses": {
+                    "200": {
+                        "description": "List of messages",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": 1
+                                                    },
+                                                    "content": {
+                                                        "type": "string",
+                                                        "example": "Lorem ipsum dolot sit amet"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "example": "2024-11-30 08:22:13"
+                                                    },
+                                                    "user": {
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Lokusok"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Messages"
+                ],
+                "operationId": "66dc3027b3e0fe7cbbace8e5b20d7794",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Text of the message"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Save message",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "number",
+                                                    "example": 1
+                                                },
+                                                "content": {
+                                                    "type": "string",
+                                                    "example": "Lorem ipsum dolot sit amet"
+                                                },
+                                                "date": {
+                                                    "type": "string",
+                                                    "example": "2024-11-30 08:22:13"
+                                                },
+                                                "user": {
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Lokusok"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/community/messages/{message}": {
+            "delete": {
+                "tags": [
+                    "Messages"
+                ],
+                "operationId": "e8d43a5c8a8c4f437e44110a845f4b1c",
+                "parameters": [
+                    {
+                        "name": "message",
+                        "in": "path",
+                        "description": "ID сообщения для удаления",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Destroy message",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success delete"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
         {
             "name": "Cart",
             "description": "Cart"
+        },
+        {
+            "name": "Messages",
+            "description": "Messages"
         }
     ]
 }

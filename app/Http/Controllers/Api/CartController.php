@@ -7,9 +7,6 @@ use App\Models\Article;
 use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 
-/**
- * @OA\Info(title="Cart", version="1.0.0")
- */
 class CartController
 {
     /**
