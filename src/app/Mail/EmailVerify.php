@@ -14,12 +14,14 @@ class EmailVerify extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public string $url;
+
     /**
      * Create a new message instance.
      */
     public function __construct(public User $user)
     {
-        //
+        $this->url = route('email.verify', [$user->emailVerifyToken->value]);
     }
 
     /**
