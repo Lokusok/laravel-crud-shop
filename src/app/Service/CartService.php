@@ -2,8 +2,10 @@
 
 namespace App\Service;
 
+use App\Enum\CartCacheEnum;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -29,14 +31,20 @@ class CartService
         $sessionId = Session::getId();
 
         if (Auth::check()) {
-            $res = DB::select($sql, [
-                ':session_id' => $sessionId,
-                ':user_id' => Auth::user()->id
-            ])[0];
+            $userId = Auth::user()->id;
+
+            $res = Cache::remember(CartCacheEnum::AUTH_USER_CART->value, 60, function () use ($sql, $sessionId, $userId) {
+                return DB::select($sql, [
+                    ':session_id' => $sessionId,
+                    ':user_id' => $userId
+                ])[0];
+            });
         } else {
-            $res = DB::select($sql, [
-                ':session_id' => $sessionId,
-            ])[0];
+            $res = Cache::remember(CartCacheEnum::GUEST_USER_CART->value, 60, function () use ($sql, $sessionId) {
+                return DB::select($sql, [
+                    ':session_id' => $sessionId,
+                ])[0];
+            });
         }
 
         return $res;
@@ -82,12 +90,16 @@ class CartService
     public function put(string $id)
     {
         if (Auth::check()) {
+            Cache::forget(CartCacheEnum::AUTH_USER_CART->value);
+
             Cart::query()->create([
                 'article_id' => $id,
                 'user_id' => Auth::user()->id
             ]);
         } else {
             $sessionId = Session::getId();
+
+            Cache::forget(CartCacheEnum::GUEST_USER_CART->value);
 
             Cart::query()->create([
                 'article_id' => $id,

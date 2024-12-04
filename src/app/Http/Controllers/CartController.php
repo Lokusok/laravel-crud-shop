@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\CartCacheEnum;
 use App\Exports\CartExport;
 use App\Http\Requests\Cart\StoreRequest;
 use App\Models\Article;
 use App\Models\Cart;
 use App\Service\CartService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CartController extends Controller
@@ -40,6 +41,9 @@ class CartController extends Controller
 
         $cartItem = Cart::query()->where('article_id', $article->id)->orderBy('created_at', 'DESC')->first();
         $cartItem->delete();
+
+        Cache::forget(CartCacheEnum::AUTH_USER_CART->value);
+        Cache::forget(CartCacheEnum::GUEST_USER_CART->value);
 
         return redirect()->route('cart.index');
     }
