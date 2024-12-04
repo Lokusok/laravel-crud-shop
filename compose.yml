@@ -180,9 +180,19 @@ services:
 #    - "traefik.http.services.${PROJECT_NAME}_kibana.loadbalancer.server.port=5601"
 #    - "traefik.http.routers.${PROJECT_NAME}_kibana.rule=Host(`kibana.${PROJECT_BASE_URL}`)"
 
-#  memcached:
-#    container_name: "${PROJECT_NAME}_memcached"
-#    image: wodby/memcached:$MEMCACHED_TAG
+  # memcached:
+  #   container_name: "${PROJECT_NAME}_memcached"
+  #   image: wodby/memcached:$MEMCACHED_TAG
+
+  redis:
+    container_name: "redis_server"
+    image: redis:latest
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_USER=${REDIS_USER}
+      - REDIS_USER_PASSWORD=${REDIS_USER_PASSWORD}
+    ports:
+      - "6380:6379"
 
 #  rsyslog:
 #    container_name: "${PROJECT_NAME}_rsyslog"
@@ -192,18 +202,18 @@ services:
 #    image: gotenberg/gotenberg
 #    container_name: "${PROJECT_NAME}_gotenberg"
 
-#  node:
-#    image: wodby/node:$NODE_TAG
-#    container_name: "${PROJECT_NAME}_node"
-#    working_dir: /app
-#    labels:
-#    - "traefik.http.services.${PROJECT_NAME}_node.loadbalancer.server.port=3000"
-#    - "traefik.http.routers.${PROJECT_NAME}_node.rule=Host(`node.${PROJECT_BASE_URL}`)"
-#    expose:
-#    - "3000"
-#    volumes:
-#    - ./path/to/your/single-page-app:/app
-#    command: sh -c 'npm install && npm run start'
+  node:
+    image: wodby/node:$NODE_TAG
+    container_name: "${PROJECT_NAME}_node"
+    working_dir: /app
+    labels:
+    - "traefik.http.services.${PROJECT_NAME}_node.loadbalancer.server.port=5173"
+    - "traefik.http.routers.${PROJECT_NAME}_node.rule=Host(`node.${PROJECT_BASE_URL}`)"
+    expose:
+    - "5173"
+    volumes:
+    - ./src:/app
+    command: sh -c 'npm install && npm run dev'
 
 #  webgrind:
 #    image: wodby/webgrind:$WEBGRIND_TAG

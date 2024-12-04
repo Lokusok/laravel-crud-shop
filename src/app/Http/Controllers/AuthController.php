@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\CartCacheEnum;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Mail\EmailVerify;
@@ -12,6 +13,7 @@ use App\Service\MailVerifyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -52,6 +54,8 @@ class AuthController extends Controller
 
             Auth::login($user);
 
+            Cache::forget(CartCacheEnum::GUEST_USER_CART->value);
+
             $isAuthenticate = true;
         }
 
@@ -87,8 +91,9 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        $request->session()->invalidate();
+        Cache::forget(CartCacheEnum::AUTH_USER_CART->value);
 
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect()->route('articles.index');
