@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\DTO\SearchDto;
+use App\Enum\ArticlesCacheEnum;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Facades\Cache;
@@ -28,7 +29,9 @@ class SearchService
 
             $articles = $articles->paginate($filterDto->perPage, pageName: $filterDto->pageName);
         } else {
-            $articles = Cache::remember("articles:{$filterDto->page}", 60, function () use ($filterDto) {
+            $cacheKey = ArticlesCacheEnum::ARTICLES_PAGINATE_CACHE->value . "{$filterDto->page}";
+
+            $articles = Cache::remember($cacheKey, 60, function () use ($filterDto) {
                 return Article::query()->paginate($filterDto->perPage, pageName: $filterDto->pageName);
             });
         }
