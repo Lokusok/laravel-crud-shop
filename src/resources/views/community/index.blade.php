@@ -16,6 +16,10 @@
                     <span>{{ __('Загрузка...') }}</span>
                 </template>
 
+                <template x-if="! $store.chat.waiting && $store.chat.messages.length === 0">
+                    <span>{{ __('Сообщений нет...') }}</span>
+                </template>
+
                 <template x-for="message in $store.chat.messages" :key="message.id">
                     <div class="message"
                         :class="{
@@ -143,14 +147,3 @@
         });
     });
 </script>
-
-{{-- <script>
-    setTimeout(() => {
-        console.log('Connected to test');
-
-        Echo.channel('test')
-            .listen('.test-event', (data) => {
-                console.log('data: ', data);
-            });
-    }, 3000);
-</script> --}}
