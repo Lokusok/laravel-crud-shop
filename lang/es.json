@@ -14,9 +14,9 @@
     "товара": "artículo",
     "Корзина": "Carrito",
     "Назад": "Atrás",
-    "Добавить": "Añadir al carrito",
+    "Добавить": "Agregar al carrito",
     "Удалить": "Eliminar",
-    "шт": "unidades",
+    "шт": "uds",
     "Вход": "Iniciar sesión",
     "Логин": "Usuario",
     "Никнейм": "Apodo",
@@ -25,7 +25,7 @@
     "Ваш пароль": "Tu contraseña",
     "Повторите пароль": "Confirmar contraseña",
     "Регистрация": "Registro",
-    "Войти": "Entrar",
+    "Войти": "Iniciar sesión",
     "Итого": "Total",
     "Пусто": "Vacío",
     "Скачать": "Descargar",
@@ -44,5 +44,10 @@
     "Уже есть аккаунт?": "¿Ya tienes una cuenta?",
     "Войти через": "Iniciar sesión a través de",
     "Здравствуйте": "Hola",
-    "Для подтверждения аккаунта, пройдите по ссылке": "Para confirmar su cuenta, siga el enlace"
+    "Для подтверждения аккаунта, пройдите по ссылке": "Para verificar tu cuenta, por favor sigue el enlace",
+    "Сообщество": "Comunidad",
+    "Загрузка...": "Cargando...",
+    "Сообщений нет...": "No hay mensajes...",
+    "Ваше сообщение": "Tu mensaje",
+    "Отправить": "Enviar"
 }
