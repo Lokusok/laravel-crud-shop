@@ -1,3 +1,0 @@
-FROM nginx:latest
-
-RUN chmod -R 777 /usr/share/nginx/html
