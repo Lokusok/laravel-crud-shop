@@ -92,6 +92,8 @@ class ArticleController extends Controller
 
         $article->update($data);
 
+        Cache::flush();
+
         return back()->with('message', __('Изменено успешно'));
     }
 

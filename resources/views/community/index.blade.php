@@ -91,12 +91,12 @@
                 console.log('Connected to test');
 
                 setTimeout(() => {
-                    Echo.channel('test')
-                        .listen('.test-event', (data) => {
+                    Echo.channel('chat')
+                        .listen('.new-message', (data) => {
                             console.log('data: ', data);
                             this.messages.push(data);
                         });
-                }, 3000);
+                }, 1000);
             },
 
             async deleteMessage(messageId) {
@@ -129,6 +129,10 @@
                 try {
                     const response = await axios.post('{{ route('messages.store') }}', {
                         content
+                    }, {
+                        headers: {
+                            'X-Socket-Id': window.Echo.socketId()
+                        }
                     });
 
                     this.content = '';

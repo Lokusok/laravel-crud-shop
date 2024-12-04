@@ -13,16 +13,16 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-Route::get('/only-auth', function () {
-    Gate::authorize('see-auth');
+// Route::get('/only-auth', function () {
+//     Gate::authorize('see-auth');
 
-    return 'Only auth page';
-});
+//     return 'Only auth page';
+// });
 
-Route::get('/only-auth/authorize', function () {
-    Session::put('can_see', true);
-    return 'Authorized';
-});
+// Route::get('/only-auth/authorize', function () {
+//     Session::put('can_see', true);
+//     return 'Authorized';
+// });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/email_verify/{token}', [UserController::class, 'verifyEmail'])->name('email.verify');
@@ -42,7 +42,7 @@ Route::prefix('/{locale?}')->middleware(LangMiddleware::class)->group(function (
     Route::match(['GET', 'POST'], '/cart/download', [CartController::class, 'download'])->name('cart.download');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-    Route::get('/community', [CommunityController::class, 'index'])->name('community.index');
+    Route::get('/community', [CommunityController::class, 'index'])->name('community.index')->middleware('auth');
 
     Route::post('/lang', [LangController::class, 'switch'])->name('lang.switch');
 
