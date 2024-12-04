@@ -21,7 +21,7 @@
 
                 <div class="profile__field">
                     <div class="profile__key">{{ __('Телефон') }}:</div>
-                    <div class="profile__value">{{ Auth::user()->phone }}</div>
+                    <div class="profile__value">{{ Auth::user()->phone ?? __('Нет') }}</div>
                 </div>
 
                 <div class="profile__field">

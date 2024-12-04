@@ -4,9 +4,11 @@
 -   Redis (Cache)
 -   Docker
 -   Корзина по сессиям, при логине переходит к пользователю
+-   Сложная логика разнесена по сервисам
 -   Экспорт корзины в Excel
--   Custom pagination
+-   Кастомная пагинация по товарам
 -   API + Swagger `/api/documentation`
+-   OAuth (Laravel Socialite)
 
 ## Технологии, использованные при разработке
 
@@ -16,26 +18,13 @@
 
 ### Через Docker:
 
-1.  `mv .env.docker .env`
-2.  `npm run dev`
-3.  `docker compose up`
+1. `mv .env.example .env`
+2. `docker compose up`
 
-Для заполнения товарами:
-`docker exec <container_id> php artisan db:seed`
+### Заполнение БД данными:
 
-Для заполнения пользователями:
-`docker exec <container_id> php artisan db:seed UserSeeder`
-
-### Локально:
-
-1.  `mv .env.local .env`
-2.  `composer run dev`
-
-Для заполнения товарами:
-`php artisan db:seed`
-
-Для заполнения пользователями:
-`php artisan db:seed UserSeeder`
+1. `./vendor/bin/sail artisan migrate`
+2. `./vendor/bin/sail artisan db:seed`
 
 ## Вход в аккаунт
 
