@@ -20,6 +20,7 @@
 
 1. `mv .env.example .env`
 2. `docker compose up`
+3. `./vendor/bin/sail npm install`
 
 ### Заполнение БД данными:
 
